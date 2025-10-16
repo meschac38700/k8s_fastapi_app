@@ -1,0 +1,6 @@
+resources:
+  - secrets
+  - configs
+  - services
+  - databases
+  - deployments

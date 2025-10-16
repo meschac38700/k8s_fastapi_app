@@ -1,0 +1,20 @@
+# Doc: https://cloudnative-pg.io/documentation/1.19/bootstrap/#bootstrap-an-empty-cluster-initdb
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: api-database
+
+spec:
+  instances: 1
+
+  superuserSecret:
+    name: database-superuser-secret
+
+  bootstrap:
+    initdb:
+      database: fastapi
+      secret:
+        name: database-superuser-secret
+
+  storage:
+    size: 10Gi

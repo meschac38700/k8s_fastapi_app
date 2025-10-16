@@ -1,0 +1,33 @@
+namespace: staging
+namePrefix: stg-
+
+commonAnnotations:
+  kubectl.kubernetes.io/last-applied-configuration: ""
+
+resources:
+  - namespaces.yaml
+  - ../../base
+images:
+  - name: registry.digitalocean.com/meschac38000/fastapi-starter
+    newName: registry.digitalocean.com/meschac38000/fastapi-starter # {"$imagepolicy": "flux-system-stg:stg-api-image-policy:name"}
+    newTag: latest # {"$imagepolicy": "flux-system-stg:stg-api-image-policy:tag"}
+configMapGenerator:
+  - name: api-config
+    behavior: merge
+    envs:
+      - ./configs/values.env
+secretGenerator:
+  - name: api-secret
+    envs:
+      - ./secrets/values.env
+  - name: database-superuser-secret
+    behavior: merge
+    envs:
+      - ./secrets/superuser.env
+patches:
+  - target:
+      group: postgresql.cnpg.io
+      version: v1
+      kind: Cluster
+      name: api-database
+    path: ./patches/databases/cloud-native-operator.yaml

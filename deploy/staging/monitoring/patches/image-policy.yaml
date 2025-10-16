@@ -1,0 +1,15 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: api-image-policy
+spec:
+  imageRepositoryRef:
+    name: stg-api-image-repository
+  filterTags:
+    pattern: '^(staging)\-(?P<ts>\w+\-?){2}$'
+    extract: '$ts'
+  policy:
+    alphabetical:
+      order: asc
+    semver:
+      $patch: delete

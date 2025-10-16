@@ -1,0 +1,7 @@
+- op: replace
+  path:  /spec/superuserSecret/name
+  value: prod-database-superuser-secret
+
+- op: replace
+  path:  /spec/bootstrap/initdb/secret/name
+  value: prod-database-superuser-secret

@@ -1,0 +1,22 @@
+namespace: flux-system-prod
+
+namePrefix: prod-
+
+resources:
+  - ../../monitoring
+
+patches:
+  - path: patches/image-policy.yaml
+  - path: patches/image-update-automation.yaml
+    target:
+      group: image.toolkit.fluxcd.io
+      name: api-image-update-automation
+      version: v1beta2
+      kind: ImageUpdateAutomation
+
+  - target:
+      group: image.toolkit.fluxcd.io
+      kind: ImageRepository
+      version: v1beta2
+      name: api-image-repository
+    path: patches/image-repository.yaml

@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/sourceRef/name
+  value: flux-system-prod
+
+- op: replace
+  path: /spec/update/path
+  value: ./deploy/prod

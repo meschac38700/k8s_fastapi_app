@@ -1,0 +1,26 @@
+namespace: flux-system-stg
+envs:
+  - ./configs/values.env
+secretGenerator:
+  - name: api-secret
+
+namePrefix: stg-
+
+resources:
+  - ../../monitoring
+
+patches:
+  - path: patches/image-policy.yaml
+  - path: patches/image-update-automation.yaml
+    target:
+      group: image.toolkit.fluxcd.io
+      name: api-image-update-automation
+      version: v1beta2
+      kind: ImageUpdateAutomation
+
+  - path: patches/image-repository.yaml
+    target:
+      group: image.toolkit.fluxcd.io
+      kind: ImageRepository
+      version: v1beta2
+      name: api-image-repository
